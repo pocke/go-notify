@@ -4,5 +4,11 @@ import "os"
 
 func main() {
 	cli := NewCLI()
-	os.Exit(cli.Run(os.Args))
+	code := cli.Run(os.Args)
+
+	if !cli.Server {
+		os.Exit(code)
+	}
+
+	select {}
 }

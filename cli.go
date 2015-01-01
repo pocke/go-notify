@@ -10,6 +10,7 @@ import (
 const (
 	ExitCodeOK = iota
 	ExitCodeParseFlagError
+	ExitCodeServerFailed
 )
 
 type CLI struct {
@@ -17,6 +18,7 @@ type CLI struct {
 	OutStream, ErrStream io.Writer
 
 	Options *Options
+	Server  bool
 }
 
 type Options struct {
@@ -33,15 +35,23 @@ func NewCLI() *CLI {
 }
 
 func (c *CLI) Run(args []string) int {
+	name := args[0]
+
 	err := c.ParseOption(args)
 	if err != nil {
 		return ExitCodeParseFlagError
 	}
 
 	if c.Options.Version {
-		fmt.Fprintf(c.ErrStream, "%s version %s\n", args[0], Version)
+		fmt.Fprintf(c.ErrStream, "%s version %s\n", name, Version)
 		return ExitCodeOK
 	}
+
+	err = RunServer(name)
+	if err != nil {
+		return ExitCodeServerFailed
+	}
+	c.Server = true
 
 	return ExitCodeOK
 }
