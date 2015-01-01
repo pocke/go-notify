@@ -53,6 +53,13 @@ func TestParseOption(t *testing.T) {
 	if !c.Options.Version {
 		t.Errorf("When --version option, Options.Version should be true. But got false")
 	}
+
+	c, _, _, _ = newCLIForTest()
+	c.ParseOption([]string{"go-notify", "-v"})
+
+	if !c.Options.Version {
+		t.Errorf("When -v option, Options.Version should be true. But got false")
+	}
 }
 
 func newCLIForTest() (c *CLI, in, out, err *bytes.Buffer) {

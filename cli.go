@@ -60,6 +60,7 @@ func (c *CLI) ParseOption(args []string) error {
 	f := flag.NewFlagSet(args[0], flag.ContinueOnError)
 	f.SetOutput(c.ErrStream)
 	f.BoolVar(&c.Options.Version, "version", false, "Print version information and quit")
+	f.BoolVar(&c.Options.Version, "v", false, "Print version information and quit")
 
 	return f.Parse(args[1:])
 }
