@@ -40,6 +40,7 @@ func (c *CLI) Run(args []string) int {
 
 	if c.Options.Version {
 		fmt.Fprintf(c.ErrStream, "%s version %s\n", args[0], Version)
+		return ExitCodeOK
 	}
 
 	return ExitCodeOK
