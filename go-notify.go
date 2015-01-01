@@ -4,5 +4,5 @@ import "os"
 
 func main() {
 	cli := NewCLI()
-	cli.Run(os.Args)
+	os.Exit(cli.Run(os.Args))
 }
