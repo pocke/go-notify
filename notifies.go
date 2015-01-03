@@ -8,7 +8,7 @@ import (
 )
 
 type Notifies struct {
-	notifyes []oshirase.Notify
+	notifies []oshirase.Notify
 	nmu      sync.RWMutex
 }
 
@@ -20,7 +20,7 @@ func (ns *Notifies) Add(n *oshirase.Notify) {
 	ns.nmu.Lock()
 	defer ns.nmu.Unlock()
 
-	ns.notifyes = append(ns.notifyes, *n)
+	ns.notifies = append(ns.notifies, *n)
 }
 
 func (ns *Notifies) Delete(id uint32) error {
@@ -31,7 +31,7 @@ func (ns *Notifies) Delete(id uint32) error {
 
 	ns.nmu.Lock()
 	defer ns.nmu.Unlock()
-	ns.notifyes = append(ns.notifyes[:idx], ns.notifyes[idx+1:]...)
+	ns.notifies = append(ns.notifies[:idx], ns.notifies[idx+1:]...)
 	return nil
 }
 
@@ -39,7 +39,7 @@ func (ns *Notifies) FindByID(id uint32) (index int, err error) {
 	ns.nmu.RLock()
 	defer ns.nmu.RUnlock()
 
-	for i, n := range ns.notifyes {
+	for i, n := range ns.notifies {
 		if n.ID == id {
 			return i, nil
 		}

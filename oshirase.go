@@ -12,16 +12,16 @@ func RunServer(name string) error {
 		return err
 	}
 
-	notifyes := NewNotifies()
+	notifies := NewNotifies()
 
 	srv.OnNotify(func(n *oshirase.Notify) {
-		notifyes.Add(n)
+		notifies.Add(n)
 		fmt.Println(n.ID)
 		fmt.Println(n.Summary)
 		fmt.Println(n.Body)
 	})
 	srv.OnCloseNotification(func(id uint32) bool {
-		err := notifyes.Delete(id)
+		err := notifies.Delete(id)
 		if err != nil {
 			return false
 		}
