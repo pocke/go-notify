@@ -16,6 +16,8 @@ func RunServer(name string) error {
 
 	srv.OnNotify(func(n *oshirase.Notify) {
 		notifies.Add(n)
+		PubSuber["Notify"].Pub(n)
+
 		fmt.Println(n.ID)
 		fmt.Println(n.Summary)
 		fmt.Println(n.Body)
