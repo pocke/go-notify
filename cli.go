@@ -52,6 +52,7 @@ func (c *CLI) Run(args []string) int {
 		return ExitCodeServerFailed
 	}
 	c.Server = true
+	go StartGtk(name)
 
 	return ExitCodeOK
 }
