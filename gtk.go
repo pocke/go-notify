@@ -28,7 +28,7 @@ func StartGtk(appName string) {
 		icon.SetTooltipText(appName)
 	})
 
-	PubSuber["Notify"].Sub(func(n *oshirase.Notify) {
+	events.On("Notify", func(n *oshirase.Notify) {
 		var popWin *gtk.Window
 		gthread(func() {
 			popWin = gtk.NewWindow(gtk.WINDOW_POPUP)
@@ -52,14 +52,6 @@ func StartGtk(appName string) {
 			popWin.Destroy()
 		})
 	})
-
-	go func() {
-		err := PubSuber["Notify"].Error()
-		select {
-		case e := <-err:
-			fmt.Printf("err: %s\n", e)
-		}
-	}()
 
 	gthread(func() {
 		gtk.Main()
