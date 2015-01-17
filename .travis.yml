@@ -9,10 +9,12 @@ before_install:
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
   - go get golang.org/x/tools/cmd/cover
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
 
 script:
-  - "if go version | grep '1.3'; then go test -v --race; fi"
-  - "if ! go version | grep '1.3'; then $HOME/gopath/bin/goveralls -repotoken $COVERALLS_TOKEN -v --race; fi"
+  - "if   go version | grep '1.3' > /dev/null; then go test -v --race; fi"
+  - "if ! go version | grep '1.3' > /dev/null; then $HOME/gopath/bin/goveralls -repotoken $COVERALLS_TOKEN -v --race; fi"
 
 env:
   global:
