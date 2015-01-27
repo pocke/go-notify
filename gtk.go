@@ -47,7 +47,7 @@ func StartGtk(appName string) {
 			popWin.ShowAll()
 		})
 
-		time.Sleep(1 * time.Second)
+		time.Sleep(2 * time.Second)
 		gthread(func() {
 			popWin.Destroy()
 		})
